@@ -27,8 +27,7 @@ export function formatDateLong(date) {
 
 export function getShiftName(group) {
   const chief = group.supervisors.find(s => s.isChief);
-  const lastName = chief.name.split(" ")[1] ?? chief.name;
-  return `Смена ${lastName}`;
+  return `Смена ${chief.nameGen}`;
 }
 
 export function getDaysInMonth(year, month) {

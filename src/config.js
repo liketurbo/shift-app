@@ -9,7 +9,7 @@ export const CONFIG = {
     {
       id: 0,
       supervisors: [
-        { name: "Алексей Иванов", isChief: true },
+        { name: "Алексей Иванов", nameGen: "Алексея Иванова", isChief: true },
         { name: "Мария Сидорова", isChief: false },
         { name: "Дмитрий Козлов", isChief: false },
       ],
@@ -17,7 +17,7 @@ export const CONFIG = {
     {
       id: 1,
       supervisors: [
-        { name: "Наталья Петрова", isChief: true },
+        { name: "Наталья Петрова", nameGen: "Натальи Петровой", isChief: true },
         { name: "Олег Волков", isChief: false },
       ],
     },
