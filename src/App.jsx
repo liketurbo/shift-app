@@ -15,7 +15,13 @@ export default function ShiftSchedule() {
     return d;
   }, []);
 
-  const [selectedWarehouseId, setSelectedWarehouseId] = useState(WAREHOUSES[0].id);
+  const [selectedWarehouseId, setSelectedWarehouseId] = useState(() => {
+    try {
+      const saved = localStorage.getItem("shift-app-warehouse-id");
+      if (saved && WAREHOUSES.some(w => w.id === saved)) return saved;
+    } catch {}
+    return WAREHOUSES[0].id;
+  });
   const warehouse = WAREHOUSES.find(w => w.id === selectedWarehouseId);
 
   const { viewYear, viewMonth, prevMonth, nextMonth } = useMonthNav(today);
@@ -62,7 +68,11 @@ export default function ShiftSchedule() {
         <WarehouseDropdown
           warehouses={WAREHOUSES}
           selectedId={selectedWarehouseId}
-          onChange={id => { setSelectedWarehouseId(id); setSelectedDate(null); }}
+          onChange={id => {
+            try { localStorage.setItem("shift-app-warehouse-id", id); } catch {}
+            setSelectedWarehouseId(id);
+            setSelectedDate(null);
+          }}
         />
       </div>
 
