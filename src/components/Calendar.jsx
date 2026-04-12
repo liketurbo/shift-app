@@ -1,8 +1,7 @@
-import { CONFIG } from "../config";
 import { getGroupForDate, isSameDay, getDaysInMonth, getFirstDayOfWeek } from "../utils";
 import styles from "./Calendar.module.css";
 
-export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth }) {
+export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth, warehouse }) {
   const daysInMonth = getDaysInMonth(year, month);
   const firstDow = getFirstDayOfWeek(year, month);
 
@@ -37,7 +36,7 @@ export default function Calendar({ year, month, today, selectedDate, onSelectDat
         {cells.map((date, idx) => {
           if (!date) return <div key={`e-${idx}`} />;
 
-          const gId = getGroupForDate(date);
+          const gId = getGroupForDate(date, warehouse);
           const isToday = isSameDay(date, today);
           const isSelected = selectedDate && isSameDay(date, selectedDate);
           const isPast = date < today;

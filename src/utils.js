@@ -1,7 +1,7 @@
-import { CONFIG, MONTHS_RU_GEN } from "./config";
+import { MONTHS_RU_GEN } from "./config";
 
-export function getGroupForDate(date) {
-  const anchor = new Date(CONFIG.anchorDate);
+export function getGroupForDate(date, warehouse) {
+  const anchor = new Date(warehouse.anchorDate);
   anchor.setHours(0, 0, 0, 0);
   const target = new Date(date);
   target.setHours(0, 0, 0, 0);
@@ -9,8 +9,8 @@ export function getGroupForDate(date) {
   // 3-on / 3-off cycle length = 6
   let slot = ((diffDays % 6) + 6) % 6;
   // anchorGroup works days 0-2, other group works days 3-5
-  if (slot < 3) return CONFIG.anchorGroup;
-  return 1 - CONFIG.anchorGroup;
+  if (slot < 3) return warehouse.anchorGroup;
+  return 1 - warehouse.anchorGroup;
 }
 
 export function isSameDay(a, b) {
