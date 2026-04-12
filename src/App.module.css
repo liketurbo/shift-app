@@ -81,6 +81,15 @@
   overflow: hidden;
 }
 
+.shift-card[data-group="0"] { border-left-color: var(--group-0); }
+.shift-card[data-group="1"] { border-left-color: var(--group-1); }
+
+.shift-card[data-group="0"] .shift-card__name { color: var(--group-0); }
+.shift-card[data-group="1"] .shift-card__name { color: var(--group-1); }
+
+.shift-card[data-group="0"] .shift-card__chief-badge { background: var(--group-0); }
+.shift-card[data-group="1"] .shift-card__chief-badge { background: var(--group-1); }
+
 .shift-card__date {
   font-size: 13px;
   font-weight: 600;

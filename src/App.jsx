@@ -69,23 +69,16 @@ export default function ShiftSchedule() {
         </div>
 
         {/* Shift info card */}
-        <div
-          className={styles["shift-card"]}
-          style={{ borderLeftColor: shift.color }}
-        >
+        <div className={styles["shift-card"]} data-group={shift.id}>
           <div className={styles["shift-card__date"]}>{dateLabel}</div>
           <div className={styles["shift-card__header"]}>
-            <span className={styles["shift-card__name"]} style={{ color: shift.color }}>
-              {getShiftName(shift)}
-            </span>
+            <span className={styles["shift-card__name"]}>{getShiftName(shift)}</span>
             <span className={styles["shift-card__hours"]}>{CONFIG.shiftHours}</span>
           </div>
           <div className={styles["shift-card__supervisors"]}>
             <div className={styles["shift-card__supervisor"]}>
               <span className={styles["shift-card__supervisor-name"]}>{chief.name}</span>
-              <span className={styles["shift-card__chief-badge"]} style={{ background: shift.color }}>
-                ст. смены
-              </span>
+              <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
             </div>
             {others.map(s => (
               <div key={s.name} className={styles["shift-card__supervisor"]}>

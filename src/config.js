@@ -8,8 +8,6 @@ export const CONFIG = {
   groups: [
     {
       id: 0,
-      color: "#1a6eb5",
-      colorLight: "#deeaf7",
       supervisors: [
         { name: "Алексей Иванов", isChief: true },
         { name: "Мария Сидорова", isChief: false },
@@ -18,8 +16,6 @@ export const CONFIG = {
     },
     {
       id: 1,
-      color: "#0f7c58",
-      colorLight: "#d5f0e6",
       supervisors: [
         { name: "Наталья Петрова", isChief: true },
         { name: "Олег Волков", isChief: false },

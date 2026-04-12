@@ -6,11 +6,7 @@ export default function Legend() {
   return (
     <div className={styles.legend}>
       {CONFIG.groups.map((g) => (
-        <span
-          key={g.id}
-          className={styles.legend__pill}
-          style={{ background: g.colorLight, color: g.color }}
-        >
+        <span key={g.id} className={styles.legend__pill} data-group={g.id}>
           {getShiftName(g)}
         </span>
       ))}

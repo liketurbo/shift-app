@@ -27,36 +27,23 @@ export default function Calendar({ year, month, today, selectedDate, onSelectDat
           if (!date) return <div key={`e-${idx}`} />;
 
           const gId = getGroupForDate(date);
-          const g = CONFIG.groups[gId];
           const isToday = isSameDay(date, today);
           const isSelected = selectedDate && isSameDay(date, selectedDate);
-          const isPast = date < today && !isToday;
-          const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-
-          const cellStyle = isPast
-            ? { background: "#f0f0f0" }
-            : {
-                background: isSelected ? g.color : g.colorLight,
-                ...(isToday && !isSelected && { outline: `2px solid ${g.color}`, outlineOffset: "-2px" }),
-              };
-
-          const numberColor = isPast ? "#bbb" : isSelected ? "#fff" : isToday ? g.color : isWeekend ? "#c0392b" : "#333";
-          const isBold = isToday || isSelected;
+          const isPast = date < today;
 
           return (
             <button
               key={date.toISOString()}
               className={styles.calendar__cell}
-              style={cellStyle}
+              data-group={isPast ? undefined : gId}
+              data-today={isToday || undefined}
+              data-selected={isSelected || undefined}
+              data-past={isPast || undefined}
               disabled={isPast}
               onClick={() => onSelectDate(date)}
             >
-              <span
-                className={`${styles["calendar__day-number"]}${isBold ? ` ${styles["calendar__day-number--bold"]}` : ""}`}
-                style={{ color: numberColor }}
-              >
-                {date.getDate()}
-              </span>
+              <span className={styles["calendar__day-number"]}>{date.getDate()}</span>
+              {isToday && <div className={styles["calendar__today-line"]} />}
             </button>
           );
         })}

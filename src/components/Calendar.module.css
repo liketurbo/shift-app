@@ -16,37 +16,66 @@
   color: #c0392b;
 }
 
+/* ── Grid ── */
 .calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
+  gap: 4px;
 }
 
+/* ── Cell base ── */
 .calendar__cell {
-  border: none;
+  aspect-ratio: 1;
+  border: 1.5px solid transparent;
   border-radius: 10px;
-  padding: 8px 2px;
+  padding: 0;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: filter 0.15s;
+  gap: 3px;
+  background: transparent;
+  transition: filter 0.12s;
 }
 
 .calendar__cell:hover:not(:disabled) {
-  filter: brightness(0.93);
+  filter: brightness(0.92);
 }
 
 .calendar__cell:disabled {
   cursor: default;
 }
 
+/* ── Group backgrounds ── */
+.calendar__cell[data-group="0"] { background: var(--group-0-light); }
+.calendar__cell[data-group="1"] { background: var(--group-1-light); }
+
+/* ── Selected: colored border ── */
+.calendar__cell[data-selected][data-group="0"] { border-color: var(--group-0); }
+.calendar__cell[data-selected][data-group="1"] { border-color: var(--group-1); }
+
+/* ── Day number ── */
 .calendar__day-number {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1;
+  color: #333;
 }
 
-.calendar__day-number--bold {
-  font-weight: 700;
+/* Past: grey text */
+.calendar__cell[data-past] .calendar__day-number { color: #ccc; }
+
+/* Today: group-colored number */
+.calendar__cell[data-today][data-group="0"] .calendar__day-number { color: var(--group-0); }
+.calendar__cell[data-today][data-group="1"] .calendar__day-number { color: var(--group-1); }
+
+/* ── Today underline ── */
+.calendar__today-line {
+  width: 13px;
+  height: 2px;
+  border-radius: 1px;
 }
+
+.calendar__cell[data-group="0"] .calendar__today-line { background: var(--group-0); }
+.calendar__cell[data-group="1"] .calendar__today-line { background: var(--group-1); }

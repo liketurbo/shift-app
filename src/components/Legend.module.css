@@ -10,3 +10,6 @@
   border-radius: 8px;
   padding: 4px 10px;
 }
+
+.legend__pill[data-group="0"] { background: var(--group-0-light); color: var(--group-0); }
+.legend__pill[data-group="1"] { background: var(--group-1-light); color: var(--group-1); }
