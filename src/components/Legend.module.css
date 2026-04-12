@@ -2,9 +2,12 @@
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .legend__pill {
+  display: inline-flex;
+  align-items: center;
   font-size: 13px;
   font-weight: 600;
   border-radius: 8px;

@@ -1,4 +1,4 @@
-import { getShiftName } from "../utils";
+import ShiftLabel from "./ShiftLabel";
 import styles from "./Legend.module.css";
 
 export default function Legend({ warehouse }) {
@@ -6,7 +6,7 @@ export default function Legend({ warehouse }) {
     <div className={styles.legend}>
       {warehouse.groups.map((g) => (
         <span key={g.id} className={styles.legend__pill} data-group={g.id}>
-          {getShiftName(g)}
+          <ShiftLabel shift={g} />
         </span>
       ))}
     </div>

@@ -26,7 +26,7 @@ export function formatDateLong(date) {
 }
 
 function lastName(fullName) {
-  return fullName.trim().split(/\s+/).at(-1);
+  return fullName.trim().split(/\s+/).at(0);
 }
 
 export function getShiftName(group) {

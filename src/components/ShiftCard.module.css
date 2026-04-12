@@ -1,0 +1,156 @@
+/* ── Overlay ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 99;
+  animation: fadeIn 0.28s ease;
+}
+
+.overlay[data-closing] {
+  animation: fadeOut 0.24s ease forwards;
+}
+
+/* ── Card ── */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+.card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid #e8eaed;
+  border-bottom: none;
+  padding: 20px 20px 36px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.10);
+  animation: slideUp 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 100;
+}
+
+.card[data-closing] {
+  animation: slideDown 0.24s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.card[data-group="0"] .name { color: var(--group-0); }
+.card[data-group="1"] .name { color: var(--group-1); }
+
+.card[data-group="0"] .chiefBadge { background: var(--group-0); }
+.card[data-group="1"] .chiefBadge { background: var(--group-1); }
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.close {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #aaa;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.close:active {
+  background: #f0f0f0;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* ── Sub-shifts (day / night) ── */
+.subshift {
+  margin-bottom: 14px;
+}
+
+.subshift:last-child {
+  margin-bottom: 0;
+}
+
+.subshiftHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.subshiftLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hours {
+  font-size: 13px;
+  color: #999;
+}
+
+/* ── Supervisors ── */
+.supervisors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.supervisor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.supervisorName {
+  font-size: 14px;
+  color: #111;
+}
+
+.chiefBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: #888;
+  border-radius: 5px;
+  padding: 2px 6px;
+  letter-spacing: 0.03em;
+}
