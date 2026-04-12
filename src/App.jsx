@@ -49,8 +49,10 @@ export default function ShiftSchedule() {
     selectedDate.getMonth() === viewMonth;
 
   const shift = isSelectedInViewMonth ? CONFIG.groups[getGroupForDate(selectedDate)] : null;
-  const chief = shift?.supervisors.find(s => s.isChief);
-  const others = shift?.supervisors.filter(s => !s.isChief) ?? [];
+  const dayChief = shift?.day.supervisors.find(s => s.isChief);
+  const dayOthers = shift?.day.supervisors.filter(s => !s.isChief) ?? [];
+  const nightChief = shift?.night.supervisors.find(s => s.isChief);
+  const nightOthers = shift?.night.supervisors.filter(s => !s.isChief) ?? [];
 
   const isToday = selectedDate && isSameDay(selectedDate, today);
   const dateLabel = isToday
@@ -112,20 +114,44 @@ export default function ShiftSchedule() {
                 aria-label="Закрыть"
               >✕</button>
             </div>
-            <div className={styles["shift-card__header"]}>
-              <span className={styles["shift-card__name"]}>{getShiftName(shift)}</span>
-              <span className={styles["shift-card__hours"]}>{CONFIG.shiftHours}</span>
-            </div>
-            <div className={styles["shift-card__supervisors"]}>
-              <div className={styles["shift-card__supervisor"]}>
-                <span className={styles["shift-card__supervisor-name"]}>{chief.name}</span>
-                <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
+            <div className={styles["shift-card__name"]}>{getShiftName(shift)}</div>
+
+            {/* Day sub-shift */}
+            <div className={styles["shift-card__subshift"]}>
+              <div className={styles["shift-card__subshift-header"]}>
+                <span className={styles["shift-card__subshift-label"]}>День</span>
+                <span className={styles["shift-card__hours"]}>{CONFIG.dayShiftHours}</span>
               </div>
-              {others.map(s => (
-                <div key={s.name} className={styles["shift-card__supervisor"]}>
-                  <span className={styles["shift-card__supervisor-name"]}>{s.name}</span>
+              <div className={styles["shift-card__supervisors"]}>
+                <div className={styles["shift-card__supervisor"]}>
+                  <span className={styles["shift-card__supervisor-name"]}>{dayChief.name}</span>
+                  <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
                 </div>
-              ))}
+                {dayOthers.map(s => (
+                  <div key={s.name} className={styles["shift-card__supervisor"]}>
+                    <span className={styles["shift-card__supervisor-name"]}>{s.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Night sub-shift */}
+            <div className={styles["shift-card__subshift"]}>
+              <div className={styles["shift-card__subshift-header"]}>
+                <span className={styles["shift-card__subshift-label"]}>Ночь</span>
+                <span className={styles["shift-card__hours"]}>{CONFIG.nightShiftHours}</span>
+              </div>
+              <div className={styles["shift-card__supervisors"]}>
+                <div className={styles["shift-card__supervisor"]}>
+                  <span className={styles["shift-card__supervisor-name"]}>{nightChief.name}</span>
+                  <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
+                </div>
+                {nightOthers.map(s => (
+                  <div key={s.name} className={styles["shift-card__supervisor"]}>
+                    <span className={styles["shift-card__supervisor-name"]}>{s.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

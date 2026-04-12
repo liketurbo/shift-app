@@ -8,22 +8,35 @@ export const CONFIG = {
   groups: [
     {
       id: 0,
-      supervisors: [
-        { name: "Алексей Иванов", nameGen: "Алексея Иванова", isChief: true },
-        { name: "Мария Сидорова", isChief: false },
-        { name: "Дмитрий Козлов", isChief: false },
-      ],
+      day: {
+        supervisors: [
+          { name: "Алексей Иванов", isChief: true },
+          { name: "Мария Сидорова", isChief: false },
+        ],
+      },
+      night: {
+        supervisors: [
+          { name: "Дмитрий Козлов", isChief: true },
+        ],
+      },
     },
     {
       id: 1,
-      supervisors: [
-        { name: "Наталья Петрова", nameGen: "Натальи Петровой", isChief: true },
-        { name: "Олег Волков", isChief: false },
-      ],
+      day: {
+        supervisors: [
+          { name: "Наталья Петрова", isChief: true },
+        ],
+      },
+      night: {
+        supervisors: [
+          { name: "Олег Волков", isChief: true },
+        ],
+      },
     },
   ],
 
-  shiftHours: "08:00 – 20:00",
+  dayShiftHours: "11:00 – 23:00",
+  nightShiftHours: "23:00 – 11:00",
 };
 
 export const DAYS_RU = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];

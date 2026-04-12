@@ -25,9 +25,14 @@ export function formatDateLong(date) {
   return `${date.getDate()} ${MONTHS_RU_GEN[date.getMonth()]} ${date.getFullYear()}`;
 }
 
+function lastName(fullName) {
+  return fullName.trim().split(/\s+/).at(-1);
+}
+
 export function getShiftName(group) {
-  const chief = group.supervisors.find(s => s.isChief);
-  return `Смена ${chief.nameGen}`;
+  const dayChief = group.day.supervisors.find(s => s.isChief);
+  const nightChief = group.night.supervisors.find(s => s.isChief);
+  return `${lastName(dayChief.name)} / ${lastName(nightChief.name)}`;
 }
 
 export function getDaysInMonth(year, month) {
