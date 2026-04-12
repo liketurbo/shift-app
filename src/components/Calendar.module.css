@@ -1,7 +1,43 @@
+/* ── Month navigation ── */
+.month-nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 6px;
+}
+
+.month-nav__label {
+  flex: 1;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111;
+}
+
+.month-nav__buttons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.month-nav__btn {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: #b8cfe0;
+  transition: color 0.13s;
+}
+
+.month-nav__btn:hover {
+  color: #7aaec8;
+}
+
 .calendar__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: 4px;
+  border-bottom: 1.5px solid #e0e0e0;
 }
 
 .calendar__weekday {
@@ -10,6 +46,7 @@
   font-weight: 600;
   padding: 4px 0 8px;
   color: #999;
+  text-transform: uppercase;
 }
 
 .calendar__weekday--weekend {

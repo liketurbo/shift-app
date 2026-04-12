@@ -35,6 +35,8 @@ export default function ShiftSchedule() {
     ? "Сегодня"
     : `${DAYS_RU[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_RU_GEN[selectedDate.getMonth()]}`;
 
+  const isCurrentMonth = viewYear === today.getFullYear() && viewMonth === today.getMonth();
+
   return (
     <div className={styles.app}>
       <div className={styles.topbar}>
@@ -47,16 +49,6 @@ export default function ShiftSchedule() {
 
       <div className={styles.content}>
         <div className={styles["calendar-card"]}>
-          <div className={styles["month-nav"]}>
-            <button
-              className={styles["month-nav__btn"]}
-              onClick={prevMonth}
-              disabled={viewYear === today.getFullYear() && viewMonth === today.getMonth()}
-            >‹</button>
-            <span className={styles["month-nav__label"]}>{MONTHS_RU[viewMonth]} {viewYear}</span>
-            <button className={styles["month-nav__btn"]} onClick={nextMonth}>›</button>
-          </div>
-
           <Legend />
 
           <Calendar
@@ -65,6 +57,10 @@ export default function ShiftSchedule() {
             today={today}
             selectedDate={selectedDate}
             onSelectDate={setSelectedDate}
+            monthLabel={`${MONTHS_RU[viewMonth]} ${viewYear}`}
+            onPrev={prevMonth}
+            onNext={nextMonth}
+            isCurrentMonth={isCurrentMonth}
           />
         </div>
 

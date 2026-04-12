@@ -2,7 +2,7 @@ import { CONFIG } from "../config";
 import { getGroupForDate, isSameDay, getDaysInMonth, getFirstDayOfWeek } from "../utils";
 import styles from "./Calendar.module.css";
 
-export default function Calendar({ year, month, today, selectedDate, onSelectDate }) {
+export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth }) {
   const daysInMonth = getDaysInMonth(year, month);
   const firstDow = getFirstDayOfWeek(year, month);
 
@@ -19,6 +19,17 @@ export default function Calendar({ year, month, today, selectedDate, onSelectDat
             {d}
           </div>
         ))}
+      </div>
+
+      {/* Month navigation */}
+      <div className={styles["month-nav"]}>
+        <span className={styles["month-nav__label"]}>{monthLabel}</span>
+        <div className={styles["month-nav__buttons"]}>
+          {!isCurrentMonth && (
+            <button className={styles["month-nav__btn"]} onClick={onPrev}>‹</button>
+          )}
+          <button className={styles["month-nav__btn"]} onClick={onNext}>›</button>
+        </div>
       </div>
 
       {/* Day grid */}

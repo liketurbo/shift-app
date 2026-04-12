@@ -42,33 +42,6 @@
   padding: 16px 16px 20px;
 }
 
-.month-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.month-nav__btn {
-  background: #f2f3f5;
-  border: none;
-  border-radius: 8px;
-  padding: 6px 12px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-}
-
-.month-nav__btn:disabled {
-  color: #ccc;
-  cursor: default;
-}
-
-.month-nav__label {
-  font-weight: 700;
-  font-size: 16px;
-  color: #111;
-}
 
 /* ── Shift card ── */
 .shift-card {
