@@ -14,7 +14,8 @@ export default function ShiftSchedule() {
 
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
-  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   function prevMonth() {
     if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11); }
@@ -26,14 +27,37 @@ export default function ShiftSchedule() {
     else setViewMonth(m => m + 1);
   }
 
-  const shift = CONFIG.groups[getGroupForDate(selectedDate)];
-  const chief = shift.supervisors.find(s => s.isChief);
-  const others = shift.supervisors.filter(s => !s.isChief);
+  function handleDateSelect(date) {
+    setSelectedDate(date);
+    setIsClosing(false);
+  }
 
-  const isToday = isSameDay(selectedDate, today);
+  function handleClose() {
+    setIsClosing(true);
+  }
+
+  function handleAnimationEnd() {
+    if (isClosing) {
+      setSelectedDate(null);
+      setIsClosing(false);
+    }
+  }
+
+  const isSelectedInViewMonth =
+    selectedDate !== null &&
+    selectedDate.getFullYear() === viewYear &&
+    selectedDate.getMonth() === viewMonth;
+
+  const shift = isSelectedInViewMonth ? CONFIG.groups[getGroupForDate(selectedDate)] : null;
+  const chief = shift?.supervisors.find(s => s.isChief);
+  const others = shift?.supervisors.filter(s => !s.isChief) ?? [];
+
+  const isToday = selectedDate && isSameDay(selectedDate, today);
   const dateLabel = isToday
     ? "Сегодня"
-    : `${DAYS_RU[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_RU_GEN[selectedDate.getMonth()]}`;
+    : selectedDate
+      ? `${DAYS_RU[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_RU_GEN[selectedDate.getMonth()]}`
+      : "";
 
   const isCurrentMonth = viewYear === today.getFullYear() && viewMonth === today.getMonth();
 
@@ -56,7 +80,7 @@ export default function ShiftSchedule() {
             month={viewMonth}
             today={today}
             selectedDate={selectedDate}
-            onSelectDate={setSelectedDate}
+            onSelectDate={handleDateSelect}
             monthLabel={`${MONTHS_RU[viewMonth]} ${viewYear}`}
             onPrev={prevMonth}
             onNext={nextMonth}
@@ -64,25 +88,47 @@ export default function ShiftSchedule() {
           />
         </div>
 
-        {/* Shift info card */}
-        <div className={styles["shift-card"]} data-group={shift.id}>
-          <div className={styles["shift-card__date"]}>{dateLabel}</div>
-          <div className={styles["shift-card__header"]}>
-            <span className={styles["shift-card__name"]}>{getShiftName(shift)}</span>
-            <span className={styles["shift-card__hours"]}>{CONFIG.shiftHours}</span>
-          </div>
-          <div className={styles["shift-card__supervisors"]}>
-            <div className={styles["shift-card__supervisor"]}>
-              <span className={styles["shift-card__supervisor-name"]}>{chief.name}</span>
-              <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
+        {/* Dim overlay + shift info card */}
+        {isSelectedInViewMonth && (
+          <div
+            className={styles.overlay}
+            data-closing={isClosing || undefined}
+            onClick={handleClose}
+          />
+        )}
+        {isSelectedInViewMonth && (
+          <div
+            key={selectedDate.toISOString()}
+            className={styles["shift-card"]}
+            data-group={shift.id}
+            data-closing={isClosing || undefined}
+            onAnimationEnd={handleAnimationEnd}
+          >
+            <div className={styles["shift-card__top"]}>
+              <div className={styles["shift-card__date"]}>{dateLabel}</div>
+              <button
+                className={styles["shift-card__close"]}
+                onClick={handleClose}
+                aria-label="Закрыть"
+              >✕</button>
             </div>
-            {others.map(s => (
-              <div key={s.name} className={styles["shift-card__supervisor"]}>
-                <span className={styles["shift-card__supervisor-name"]}>{s.name}</span>
+            <div className={styles["shift-card__header"]}>
+              <span className={styles["shift-card__name"]}>{getShiftName(shift)}</span>
+              <span className={styles["shift-card__hours"]}>{CONFIG.shiftHours}</span>
+            </div>
+            <div className={styles["shift-card__supervisors"]}>
+              <div className={styles["shift-card__supervisor"]}>
+                <span className={styles["shift-card__supervisor-name"]}>{chief.name}</span>
+                <span className={styles["shift-card__chief-badge"]}>ст. смены</span>
               </div>
-            ))}
+              {others.map(s => (
+                <div key={s.name} className={styles["shift-card__supervisor"]}>
+                  <span className={styles["shift-card__supervisor-name"]}>{s.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
