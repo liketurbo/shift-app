@@ -1,8 +1,8 @@
 export const WAREHOUSES = [
   {
     id: "ozon-1",
-    name: "Озон — склад 1",
-    anchorDate: "2025-04-01",
+    name: "Домодедово Промышленная Блок 1",
+    anchorDate: "2026-04-11",
     anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
     nightShiftHours: "23:00 – 11:00",
@@ -11,13 +11,14 @@ export const WAREHOUSES = [
         id: 0,
         day: {
           supervisors: [
-            { name: "Алексей Иванов", isChief: true },
-            { name: "Мария Сидорова", isChief: false },
+            { name: "Долматов Сергей", isChief: true },
+            { name: "Кривоногов Дмитрий", isChief: false },
           ],
         },
         night: {
           supervisors: [
-            { name: "Дмитрий Козлов", isChief: true },
+            { name: "Жуков Руслан", isChief: true },
+            { name: "Онопченко Яна", isChief: false },
           ],
         },
       },
@@ -25,12 +26,14 @@ export const WAREHOUSES = [
         id: 1,
         day: {
           supervisors: [
-            { name: "Наталья Петрова", isChief: true },
+            { name: "Генералов Артем", isChief: true },
+            { name: "Митин Максим", isChief: false },
           ],
         },
         night: {
           supervisors: [
-            { name: "Олег Волков", isChief: true },
+            { name: "Кузьмин Максим", isChief: true },
+            { name: "Тихонов Герман", isChief: false },
           ],
         },
       },
@@ -38,9 +41,9 @@ export const WAREHOUSES = [
   },
   {
     id: "ozon-2",
-    name: "Озон — склад 2",
-    anchorDate: "2025-04-01",
-    anchorGroup: 1,
+    name: "Домодедово Промышленная Блок 2",
+    anchorDate: "2026-04-11",
+    anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
     nightShiftHours: "23:00 – 11:00",
     groups: [
@@ -48,12 +51,12 @@ export const WAREHOUSES = [
         id: 0,
         day: {
           supervisors: [
-            { name: "Игорь Смирнов", isChief: true },
+            { name: "Генералов Александр", isChief: true },
           ],
         },
         night: {
           supervisors: [
-            { name: "Анна Белова", isChief: true },
+            { name: "Петров Александр", isChief: true },
           ],
         },
       },
@@ -61,12 +64,13 @@ export const WAREHOUSES = [
         id: 1,
         day: {
           supervisors: [
-            { name: "Павел Морозов", isChief: true },
+            { name: "Беляев Сергей", isChief: true },
+            { name: "Ирина", isChief: false },
           ],
         },
         night: {
           supervisors: [
-            { name: "Елена Новикова", isChief: true },
+            { name: "Сергей", isChief: true },
           ],
         },
       },
