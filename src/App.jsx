@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { WAREHOUSES, MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
 import { getGroupForDate, isSameDay } from "./utils";
 import useMonthNav from "./hooks/useMonthNav";
@@ -23,6 +23,16 @@ export default function ShiftSchedule() {
     return WAREHOUSES[0].id;
   });
   const warehouse = WAREHOUSES.find(w => w.id === selectedWarehouseId);
+
+  useEffect(() => {
+    const { group0, group0Light, group1, group1Light, topbar } = warehouse.palette;
+    const root = document.documentElement;
+    root.style.setProperty("--group-0",       group0);
+    root.style.setProperty("--group-0-light", group0Light);
+    root.style.setProperty("--group-1",       group1);
+    root.style.setProperty("--group-1-light", group1Light);
+    root.style.setProperty("--topbar",        topbar);
+  }, [warehouse]);
 
   const { viewYear, viewMonth, prevMonth, nextMonth } = useMonthNav(today);
 

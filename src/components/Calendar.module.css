@@ -73,7 +73,7 @@
   justify-content: center;
   gap: 3px;
   background: transparent;
-  transition: filter 0.12s;
+  transition: filter 0.12s, background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .calendar__cell:hover:not(:disabled) {
@@ -98,6 +98,7 @@
   font-weight: 400;
   line-height: 1;
   color: #333;
+  transition: color 0.4s ease;
 }
 
 /* Past: grey text */
@@ -112,6 +113,7 @@
   width: 13px;
   height: 2px;
   border-radius: 1px;
+  transition: background-color 0.4s ease;
 }
 
 .calendar__cell[data-group="0"] .calendar__today-line { background: var(--group-0); }

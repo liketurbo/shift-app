@@ -2,6 +2,13 @@ export const WAREHOUSES = [
   {
     id: "ozon-1",
     name: "Домодедово Промышленная Блок 1",
+    palette: {
+      group0:      "#1a6eb5",
+      group0Light: "#edf4fc",
+      group1:      "#0f7c58",
+      group1Light: "#e8f5ef",
+      topbar:      "#2ca5e0",
+    },
     anchorDate: "2026-04-11",
     anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
@@ -42,6 +49,13 @@ export const WAREHOUSES = [
   {
     id: "ozon-2",
     name: "Домодедово Промышленная Блок 2",
+    palette: {
+      group0:      "#7c3aed",
+      group0Light: "#f0ebff",
+      group1:      "#c2410c",
+      group1Light: "#fff2eb",
+      topbar:      "#7c3aed",
+    },
     anchorDate: "2026-04-11",
     anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
