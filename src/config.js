@@ -79,12 +79,12 @@ export const WAREHOUSES = [
         day: {
           supervisors: [
             { name: "Беляев Сергей", isChief: true },
-            { name: "Ирина", isChief: false },
+            { name: "Полякова Ирина", isChief: false },
           ],
         },
         night: {
           supervisors: [
-            { name: "Сергей", isChief: true },
+            { name: "Попов Сергей", isChief: true },
           ],
         },
       },
