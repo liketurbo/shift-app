@@ -6,7 +6,7 @@
 .legend {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
 
@@ -15,8 +15,8 @@
   align-items: center;
   font-size: 0.8125rem;
   font-weight: 600;
-  border-radius: 8px;
-  padding: 4px 10px;
+  border-radius: 9px;
+  padding: 5px 10px;
   animation: pillFadeIn 0.25s ease both;
 }
 
