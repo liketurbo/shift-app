@@ -52,6 +52,29 @@
         },
         "x-confirmation": "retrofit-annotation+browser-response"
       }
+    },
+    "/v1/calendar/object/{id}/process/{processId}/slots": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SelectedScheduleRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Available time slots verified against browser traffic",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ShiftTimeSlotsResponse" }
+              }
+            }
+          }
+        },
+        "x-confirmation": "retrofit-annotation+browser-response"
+      }
     }
   },
   "components": {
@@ -266,6 +289,84 @@
           "medicalBook": { "type": "boolean" },
           "uniform": { "type": "boolean" },
           "bus": { "type": "boolean" }
+        }
+      },
+      "SelectedScheduleRequest": {
+        "type": "object",
+        "required": ["selectedScheduleConfig"],
+        "properties": {
+          "selectedScheduleConfig": { "$ref": "#/components/schemas/SelectedScheduleConfigRequest" }
+        }
+      },
+      "SelectedScheduleConfigRequest": {
+        "type": "object",
+        "required": ["chosenDays", "scheduleId", "startDate"],
+        "properties": {
+          "chosenDays": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CalendarDate" }
+          },
+          "scheduleId": { "type": "string" },
+          "startDate": { "$ref": "#/components/schemas/CalendarDate" }
+        }
+      },
+      "ShiftTimeSlotsResponse": {
+        "type": "object",
+        "description": "Shape verified from a successful browser request on 2026-08-10.",
+        "required": ["warehouse", "process", "groupedSlots", "profilePhotoStatus", "constraints"],
+        "properties": {
+          "warehouse": { "$ref": "#/components/schemas/Warehouse" },
+          "process": { "$ref": "#/components/schemas/ShiftProcess" },
+          "groupedSlots": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/GroupedShiftSlots" }
+          },
+          "profilePhotoStatus": { "type": "string" },
+          "constraints": {}
+        }
+      },
+      "GroupedShiftSlots": {
+        "type": "object",
+        "required": ["duration", "confirmIntervals", "queueIntervals"],
+        "properties": {
+          "duration": { "type": "integer" },
+          "confirmIntervals": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AvailableShiftInterval" }
+          },
+          "queueIntervals": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AvailableShiftInterval" }
+          }
+        }
+      },
+      "AvailableShiftInterval": {
+        "type": "object",
+        "required": ["interval", "payment", "badges", "totalRate"],
+        "properties": {
+          "interval": { "$ref": "#/components/schemas/ShiftInterval" },
+          "payment": { "$ref": "#/components/schemas/ShiftPayment" },
+          "badges": { "type": "array", "items": { "type": "string" } },
+          "totalRate": { "type": "string" }
+        }
+      },
+      "ShiftInterval": {
+        "type": "object",
+        "required": ["startTime", "endTime"],
+        "properties": {
+          "startTime": { "type": "string", "format": "date-time" },
+          "endTime": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ShiftPayment": {
+        "type": "object",
+        "required": ["rate", "period", "boosted", "changePercent", "ratePerHour"],
+        "properties": {
+          "rate": { "type": "string" },
+          "period": { "type": "integer" },
+          "boosted": { "type": "boolean" },
+          "changePercent": { "type": "string" },
+          "ratePerHour": { "type": "string" }
         }
       }
     }
