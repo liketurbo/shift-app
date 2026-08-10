@@ -113,8 +113,9 @@
 
 /* ── Today underline ── */
 .calendar__today-line {
-  width: 13px;
+  width: clamp(13px, 32%, 18px);
   height: 2px;
+  flex: 0 0 auto;
   border-radius: 1px;
   transition: background-color 0.4s ease;
 }
