@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useMonthNav(today) {
+export default function useMonthNav(today: Date) {
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
 

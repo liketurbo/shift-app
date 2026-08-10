@@ -1,14 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./WarehouseDropdown.module.css";
+import type { Warehouse } from "../types";
 
-export default function WarehouseDropdown({ warehouses, selectedId, onChange }) {
+interface WarehouseDropdownProps {
+  warehouses: Warehouse[];
+  selectedId: string;
+  onChange: (id: string) => void;
+}
+
+export default function WarehouseDropdown({ warehouses, selectedId, onChange }: WarehouseDropdownProps) {
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const selected = warehouses.find(w => w.id === selectedId);
 
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && e.target instanceof Node && !ref.current.contains(e.target)) {
         setOpen(false);
       }
     }
@@ -19,7 +26,7 @@ export default function WarehouseDropdown({ warehouses, selectedId, onChange }) 
   return (
     <div className={styles.dropdown} ref={ref}>
       <button className={styles.btn} onClick={() => setOpen(o => !o)}>
-        {selected.name}
+        {selected?.name}
         <span className={styles.chevron} data-open={open || undefined}>▾</span>
       </button>
       {open && (

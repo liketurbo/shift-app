@@ -1,7 +1,17 @@
 import ShiftLabel from "./ShiftLabel";
 import styles from "./ShiftCard.module.css";
+import type { ShiftGroup, Warehouse } from "../types";
 
-export default function ShiftCard({ shift, dateLabel, warehouse, isClosing, onClose, onAnimationEnd }) {
+interface ShiftCardProps {
+  shift: ShiftGroup;
+  dateLabel: string;
+  warehouse: Warehouse;
+  isClosing: boolean;
+  onClose: () => void;
+  onAnimationEnd: () => void;
+}
+
+export default function ShiftCard({ shift, dateLabel, warehouse, isClosing, onClose, onAnimationEnd }: ShiftCardProps) {
   const dayChief = shift.day.supervisors.find(s => s.isChief);
   const dayOthers = shift.day.supervisors.filter(s => !s.isChief);
   const nightChief = shift.night.supervisors.find(s => s.isChief);
@@ -33,7 +43,7 @@ export default function ShiftCard({ shift, dateLabel, warehouse, isClosing, onCl
           </div>
           <div className={styles.supervisors}>
             <div className={styles.supervisor}>
-              <span className={styles.supervisorName}>{dayChief.name}</span>
+              <span className={styles.supervisorName}>{dayChief?.name}</span>
               <span className={styles.chiefBadge}>нач. смены</span>
             </div>
             {dayOthers.map(s => (
@@ -51,7 +61,7 @@ export default function ShiftCard({ shift, dateLabel, warehouse, isClosing, onCl
           </div>
           <div className={styles.supervisors}>
             <div className={styles.supervisor}>
-              <span className={styles.supervisorName}>{nightChief.name}</span>
+              <span className={styles.supervisorName}>{nightChief?.name}</span>
               <span className={styles.chiefBadge}>нач. смены</span>
             </div>
             {nightOthers.map(s => (

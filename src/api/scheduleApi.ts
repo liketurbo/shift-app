@@ -1,36 +1,17 @@
 const DEFAULT_TIMEOUT_MS = 8_000;
+import type { Warehouse } from "../types";
 
-/**
- * The browser talks only to a trusted proxy. The proxy is responsible for
- * calling Ozon Job and must never return authorization headers or cookies.
- *
- * @typedef {{ name: string, isChief: boolean }} Supervisor
- * @typedef {{ supervisors: Supervisor[] }} Subshift
- * @typedef {{ id: number, day: Subshift, night: Subshift }} ShiftGroup
- * @typedef {{
- *   id: string,
- *   name: string,
- *   palette: {
- *     group0: string,
- *     group0Light: string,
- *     group1: string,
- *     group1Light: string,
- *     topbar: string
- *   },
- *   anchorDate: string,
- *   anchorGroup: number,
- *   dayShiftHours: string,
- *   nightShiftHours: string,
- *   groups: ShiftGroup[]
- * }} Warehouse
- */
-
-function assertSchedulePayload(payload) {
-  if (!payload || !Array.isArray(payload.warehouses) || payload.warehouses.length === 0) {
+function assertSchedulePayload(payload: unknown): Warehouse[] {
+  if (typeof payload !== "object" || payload === null || !("warehouses" in payload)) {
     throw new Error("API вернул график в неподдерживаемом формате");
   }
 
-  for (const warehouse of payload.warehouses) {
+  const { warehouses } = payload;
+  if (!Array.isArray(warehouses) || warehouses.length === 0) {
+    throw new Error("API вернул график в неподдерживаемом формате");
+  }
+
+  for (const warehouse of warehouses) {
     if (
       typeof warehouse?.id !== "string" ||
       typeof warehouse?.name !== "string" ||
@@ -41,7 +22,7 @@ function assertSchedulePayload(payload) {
     }
   }
 
-  return payload.warehouses;
+  return warehouses as Warehouse[];
 }
 
 /**
@@ -50,7 +31,10 @@ function assertSchedulePayload(payload) {
  *
  * Expected response: { warehouses: Warehouse[] }
  */
-export async function fetchSchedule(apiUrl, { signal } = {}) {
+export async function fetchSchedule(
+  apiUrl: string,
+  { signal }: { signal?: AbortSignal } = {},
+): Promise<Warehouse[]> {
   if (!apiUrl) throw new Error("Адрес API не настроен");
 
   const timeoutController = new AbortController();
@@ -75,4 +59,3 @@ export async function fetchSchedule(apiUrl, { signal } = {}) {
     signal?.removeEventListener("abort", abort);
   }
 }
-

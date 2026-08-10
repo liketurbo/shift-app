@@ -11,6 +11,9 @@ import styles from "./App.module.css";
 
 export default function ShiftSchedule() {
   const { warehouses, source, message } = useScheduleData();
+  const firstWarehouse = warehouses[0];
+
+  if (!firstWarehouse) throw new Error("Список складов пуст");
 
   const today = useMemo(() => {
     const d = new Date();
@@ -25,14 +28,14 @@ export default function ShiftSchedule() {
     } catch {
       // Storage can be unavailable in private browsing modes.
     }
-    return warehouses[0].id;
+    return firstWarehouse.id;
   });
   const activeWarehouseId = warehouses.some(w => w.id === selectedWarehouseId)
     ? selectedWarehouseId
-    : warehouses[0].id;
-  const warehouse = warehouses.find(w => w.id === activeWarehouseId);
+    : firstWarehouse.id;
+  const warehouse = warehouses.find(w => w.id === activeWarehouseId) ?? firstWarehouse;
 
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function ShiftSchedule() {
 
   const { viewYear, viewMonth, prevMonth, nextMonth } = useMonthNav(today);
 
-  function handleDateSelect(date) {
+  function handleDateSelect(date: Date) {
     setSelectedDate(date);
     setIsClosing(false);
   }
@@ -68,7 +71,9 @@ export default function ShiftSchedule() {
     selectedDate.getFullYear() === viewYear &&
     selectedDate.getMonth() === viewMonth;
 
-  const shift = isSelectedInViewMonth ? warehouse.groups[getGroupForDate(selectedDate, warehouse)] : null;
+  const shift = isSelectedInViewMonth
+    ? warehouse.groups[getGroupForDate(selectedDate, warehouse)] ?? null
+    : null;
 
   const isToday = selectedDate && isSameDay(selectedDate, today);
   const dateLabel = isToday
@@ -119,7 +124,7 @@ export default function ShiftSchedule() {
           />
         </div>
 
-        {isSelectedInViewMonth && (
+        {isSelectedInViewMonth && shift && selectedDate && (
           <ShiftCard
             key={selectedDate.toISOString()}
             shift={shift}

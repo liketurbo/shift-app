@@ -1,4 +1,6 @@
-export const WAREHOUSES = [
+import type { Warehouse } from "./types";
+
+export const WAREHOUSES: Warehouse[] = [
   {
     id: "ozon-1",
     name: "Домодедово Промышленная Блок 1",

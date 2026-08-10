@@ -1,11 +1,25 @@
 import { getGroupForDate, isSameDay, getDaysInMonth, getFirstDayOfWeek } from "../utils";
 import styles from "./Calendar.module.css";
+import type { Warehouse } from "../types";
 
-export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth, warehouse }) {
+interface CalendarProps {
+  year: number;
+  month: number;
+  today: Date;
+  selectedDate: Date | null;
+  onSelectDate: (date: Date) => void;
+  monthLabel: string;
+  onPrev: () => void;
+  onNext: () => void;
+  isCurrentMonth: boolean;
+  warehouse: Warehouse;
+}
+
+export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth, warehouse }: CalendarProps) {
   const daysInMonth = getDaysInMonth(year, month);
   const firstDow = getFirstDayOfWeek(year, month);
 
-  const cells = [];
+  const cells: Array<Date | null> = [];
   for (let i = 0; i < firstDow; i++) cells.push(null);
   for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(year, month, d));
 
