@@ -1,6 +1,6 @@
 import styles from "./ShiftLabel.module.css";
 
-export function shortName(fullName) {
+function shortName(fullName) {
   const parts = fullName.trim().split(/\s+/);
   return parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : parts[0];
 }

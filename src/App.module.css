@@ -24,6 +24,39 @@
   padding: 16px;
 }
 
+.source {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 4px 10px;
+  color: #667085;
+  font-size: 0.72rem;
+}
+
+.source__dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #98a2b3;
+}
+
+.source[data-source="remote"] .source__dot {
+  background: #12b76a;
+}
+
+.source[data-source="loading"] .source__dot {
+  background: #f79009;
+}
+
+.source[data-source="fallback"] {
+  color: #b54708;
+}
+
+.source[data-source="fallback"] .source__dot {
+  background: #f79009;
+}
+
 /* ── Calendar card ── */
 .calendar-card {
   background: #fff;

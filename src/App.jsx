@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { WAREHOUSES, MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
+import { MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
 import { getGroupForDate, isSameDay } from "./utils";
 import useMonthNav from "./hooks/useMonthNav";
+import useScheduleData from "./hooks/useScheduleData";
 import Calendar from "./components/Calendar";
 import Legend from "./components/Legend";
 import ShiftCard from "./components/ShiftCard";
@@ -9,6 +10,8 @@ import WarehouseDropdown from "./components/WarehouseDropdown";
 import styles from "./App.module.css";
 
 export default function ShiftSchedule() {
+  const { warehouses, source, message } = useScheduleData();
+
   const today = useMemo(() => {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
@@ -18,11 +21,19 @@ export default function ShiftSchedule() {
   const [selectedWarehouseId, setSelectedWarehouseId] = useState(() => {
     try {
       const saved = localStorage.getItem("shift-app-warehouse-id");
-      if (saved && WAREHOUSES.some(w => w.id === saved)) return saved;
-    } catch {}
-    return WAREHOUSES[0].id;
+      if (saved && warehouses.some(w => w.id === saved)) return saved;
+    } catch {
+      // Storage can be unavailable in private browsing modes.
+    }
+    return warehouses[0].id;
   });
-  const warehouse = WAREHOUSES.find(w => w.id === selectedWarehouseId);
+  const activeWarehouseId = warehouses.some(w => w.id === selectedWarehouseId)
+    ? selectedWarehouseId
+    : warehouses[0].id;
+  const warehouse = warehouses.find(w => w.id === activeWarehouseId);
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     const { group0, group0Light, group1, group1Light, topbar } = warehouse.palette;
@@ -35,9 +46,6 @@ export default function ShiftSchedule() {
   }, [warehouse]);
 
   const { viewYear, viewMonth, prevMonth, nextMonth } = useMonthNav(today);
-
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isClosing, setIsClosing] = useState(false);
 
   function handleDateSelect(date) {
     setSelectedDate(date);
@@ -76,10 +84,14 @@ export default function ShiftSchedule() {
       <div className={styles.topbar}>
         <div className={styles.topbar__title}>График смен</div>
         <WarehouseDropdown
-          warehouses={WAREHOUSES}
-          selectedId={selectedWarehouseId}
+          warehouses={warehouses}
+          selectedId={activeWarehouseId}
           onChange={id => {
-            try { localStorage.setItem("shift-app-warehouse-id", id); } catch {}
+            try {
+              localStorage.setItem("shift-app-warehouse-id", id);
+            } catch {
+              // The selection still works for the current session.
+            }
             setSelectedWarehouseId(id);
             setSelectedDate(null);
           }}
@@ -87,6 +99,10 @@ export default function ShiftSchedule() {
       </div>
 
       <div className={styles.content}>
+        <div className={styles.source} data-source={source} role="status">
+          <span className={styles.source__dot} />
+          {message}
+        </div>
         <div className={styles["calendar-card"]}>
           <Legend warehouse={warehouse} />
           <Calendar
