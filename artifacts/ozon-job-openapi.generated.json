@@ -2005,12 +2005,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Successful response verified against captured browser traffic",
+            "description": "Successful response; exact schema requires Moshi adapter or captured traffic",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShiftListResponse"
-                }
+                "schema": {}
               }
             }
           },
@@ -2018,7 +2016,7 @@
             "description": "Ozon Job API error"
           }
         },
-        "x-confirmation": "retrofit-annotation+har-response",
+        "x-confirmation": "retrofit-annotation",
         "x-java-interface": "ru.ozon.hire.network.api.booking.BookingApi",
         "x-java-signature": "@NotNull d<ShiftListResponse> getShifts();",
         "x-source": "network/api/booking/BookingApi.java",
@@ -7267,204 +7265,6 @@
         "in": "header",
         "name": "Cookie",
         "description": "Server-side session cookie set captured from the user's own authenticated session; exact cookie names are not confirmed."
-      }
-    },
-    "schemas": {
-      "ShiftListResponse": {
-        "type": "object",
-        "description": "Shape verified from a successful browser HAR capture on 2026-08-10.",
-        "required": [
-          "approveBookBeforeHours",
-          "shifts",
-          "staffShifts"
-        ],
-        "properties": {
-          "approveBookBeforeHours": {
-            "type": "integer"
-          },
-          "shifts": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/EmployeeShift"
-            }
-          },
-          "staffShifts": {
-            "type": [
-              "object",
-              "null"
-            ]
-          }
-        }
-      },
-      "EmployeeShift": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "canBeCancelled": {
-            "type": "boolean"
-          },
-          "isNight": {
-            "type": "boolean"
-          },
-          "probability": {
-            "type": "string"
-          },
-          "shiftCreator": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "interval": {
-            "type": "object",
-            "properties": {
-              "startTime": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "endTime": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
-          },
-          "object": {
-            "$ref": "#/components/schemas/ShiftObject"
-          },
-          "process": {
-            "$ref": "#/components/schemas/ShiftProcess"
-          },
-          "transportation": {
-            "$ref": "#/components/schemas/ShiftTransportation"
-          }
-        }
-      },
-      "ShiftObject": {
-        "type": "object",
-        "properties": {
-          "details": {
-            "type": "object",
-            "properties": {
-              "landingPageUrl": {
-                "type": "string",
-                "format": "uri"
-              },
-              "objectInstructionUrl": {
-                "type": "string",
-                "format": "uri"
-              }
-            }
-          },
-          "requirements": {
-            "type": "object",
-            "properties": {
-              "bus": {
-                "type": "boolean"
-              },
-              "uniform": {
-                "type": "boolean"
-              }
-            }
-          },
-          "warehouse": {
-            "$ref": "#/components/schemas/Warehouse"
-          }
-        }
-      },
-      "Warehouse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
-          },
-          "cooldownPeriod": {
-            "type": "string"
-          },
-          "timezone": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "coordinates": {
-            "type": "object",
-            "properties": {
-              "latitude": {
-                "type": "string"
-              },
-              "longitude": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "ShiftProcess": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "payment": {
-            "type": "object",
-            "properties": {
-              "changePercent": {
-                "type": "string"
-              },
-              "period": {
-                "type": "integer"
-              },
-              "rate": {
-                "type": "string"
-              },
-              "ratePerHour": {
-                "type": "string"
-              }
-            }
-          },
-          "vacancy": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "ShiftTransportation": {
-        "type": "object",
-        "properties": {
-          "busStop": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "needReclarify": {
-            "type": "boolean"
-          },
-          "type": {
-            "type": "string"
-          }
-        }
       }
     }
   },
