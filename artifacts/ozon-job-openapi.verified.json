@@ -29,6 +29,29 @@
         },
         "x-confirmation": "retrofit-annotation+har-error-response"
       }
+    },
+    "/v1/calendar/object/{id}/process/{processId}": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CalendarRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Calendar response verified against browser traffic",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CalendarResponse" }
+              }
+            }
+          }
+        },
+        "x-confirmation": "retrofit-annotation+browser-response"
+      }
     }
   },
   "components": {
@@ -117,9 +140,11 @@
               "changePercent": { "type": "string" },
               "period": { "type": "integer" },
               "rate": { "type": "string" },
-              "ratePerHour": { "type": "string" }
+              "ratePerHour": { "type": "string" },
+              "boosted": { "type": "boolean" }
             }
           },
+          "isLearning": { "type": "boolean" },
           "vacancy": {
             "type": "object",
             "properties": {
@@ -149,6 +174,98 @@
             "type": "array",
             "items": {}
           }
+        }
+      },
+      "CalendarDate": {
+        "type": "object",
+        "required": ["year", "month", "day"],
+        "properties": {
+          "year": { "type": "integer" },
+          "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+          "day": { "type": "integer", "minimum": 1, "maximum": 31 }
+        }
+      },
+      "CalendarRequest": {
+        "type": "object",
+        "required": ["date"],
+        "properties": {
+          "date": { "$ref": "#/components/schemas/CalendarDate" }
+        }
+      },
+      "CalendarResponse": {
+        "type": "object",
+        "description": "Shape verified from a successful browser request on 2026-08-10.",
+        "required": ["warehouse", "process", "days", "transportation", "titleComponentId", "banners", "profilePhotoStatus", "schedules", "requirements"],
+        "properties": {
+          "warehouse": { "$ref": "#/components/schemas/Warehouse" },
+          "process": { "$ref": "#/components/schemas/ShiftProcess" },
+          "days": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CalendarDay" }
+          },
+          "transportation": { "$ref": "#/components/schemas/ShiftTransportation" },
+          "titleComponentId": { "type": "string" },
+          "banners": { "type": "array", "items": {} },
+          "profilePhotoStatus": { "type": "string" },
+          "schedules": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CalendarSchedule" }
+          },
+          "requirements": { "$ref": "#/components/schemas/CalendarRequirements" }
+        }
+      },
+      "CalendarDay": {
+        "type": "object",
+        "required": ["day", "badges", "probability"],
+        "properties": {
+          "day": { "$ref": "#/components/schemas/CalendarDate" },
+          "badges": { "type": "array", "items": { "type": "string" } },
+          "probability": { "type": "string" }
+        }
+      },
+      "CalendarSchedule": {
+        "type": "object",
+        "required": ["id", "type", "scheduleName", "standardScheduleConfig", "constraints"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "scheduleName": { "type": "string" },
+          "standardScheduleConfig": {
+            "oneOf": [
+              { "$ref": "#/components/schemas/StandardScheduleConfig" },
+              { "type": "null" }
+            ]
+          },
+          "constraints": { "$ref": "#/components/schemas/CalendarScheduleConstraints" }
+        }
+      },
+      "StandardScheduleConfig": {
+        "type": "object",
+        "required": ["daysToWork", "daysToRest"],
+        "properties": {
+          "daysToWork": { "type": "integer" },
+          "daysToRest": { "type": "integer" }
+        }
+      },
+      "CalendarScheduleConstraints": {
+        "type": "object",
+        "required": ["minStartDate", "maxStartDate", "minDaysCount", "maxEndDate", "allowDayCut", "maxPossibleRange"],
+        "properties": {
+          "minStartDate": { "type": ["string", "null"] },
+          "maxStartDate": { "type": ["string", "null"] },
+          "minDaysCount": { "type": ["integer", "null"] },
+          "maxEndDate": { "type": ["string", "null"] },
+          "allowDayCut": { "type": "boolean" },
+          "maxPossibleRange": { "type": "integer" }
+        }
+      },
+      "CalendarRequirements": {
+        "type": "object",
+        "required": ["medicalBook", "uniform", "bus"],
+        "properties": {
+          "medicalBook": { "type": "boolean" },
+          "uniform": { "type": "boolean" },
+          "bus": { "type": "boolean" }
         }
       }
     }
