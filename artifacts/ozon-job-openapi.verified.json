@@ -14,6 +14,21 @@
         },
         "x-confirmation": "retrofit-annotation+har-response"
       }
+    },
+    "/v1/staff/shift/schedule": {
+      "get": {
+        "responses": {
+          "404": {
+            "description": "No active staff employment contract",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OzonJobError" }
+              }
+            }
+          }
+        },
+        "x-confirmation": "retrofit-annotation+har-error-response"
+      }
     }
   },
   "components": {
@@ -121,6 +136,19 @@
           "name": { "type": "string" },
           "needReclarify": { "type": "boolean" },
           "type": { "type": "string" }
+        }
+      },
+      "OzonJobError": {
+        "type": "object",
+        "description": "Error shape verified from browser HAR traffic on 2026-08-10; identifying message content was not retained.",
+        "required": ["code", "message", "details"],
+        "properties": {
+          "code": { "type": "integer" },
+          "message": { "type": "string" },
+          "details": {
+            "type": "array",
+            "items": {}
+          }
         }
       }
     }
