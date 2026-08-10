@@ -1977,17 +1977,20 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "x-java-type": "ShiftConflictsRequest"
+                "x-java-type": "ShiftConflictsRequest",
+                "$ref": "#/components/schemas/ShiftConflictsRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful response; exact schema requires Moshi adapter or captured traffic",
+            "description": "Conflict check verified against browser traffic",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ShiftConflictsResponse"
+                }
               }
             }
           },
@@ -1995,7 +1998,7 @@
             "description": "Ozon Job API error"
           }
         },
-        "x-confirmation": "retrofit-annotation",
+        "x-confirmation": "retrofit-annotation+browser-response",
         "x-java-interface": "ru.ozon.hire.network.api.booking.BookingApi",
         "x-java-signature": "@NotNull d<ShiftConflictsResponse> getShiftConflicts(@Path(\"id\") @NotNull String warehouseId, @Path(\"processId\") @NotNull String processId, @Body @NotNull ShiftConflictsRequest body);",
         "x-source": "network/api/booking/BookingApi.java"
@@ -7881,6 +7884,48 @@
           },
           "ratePerHour": {
             "type": "string"
+          }
+        }
+      },
+      "ShiftConflictsRequest": {
+        "type": "object",
+        "required": [
+          "selectedIntervals",
+          "selectedScheduleConfig"
+        ],
+        "properties": {
+          "selectedIntervals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShiftInterval"
+            }
+          },
+          "selectedScheduleConfig": {
+            "$ref": "#/components/schemas/SelectedScheduleConfigRequest"
+          }
+        }
+      },
+      "ShiftConflictsResponse": {
+        "type": "object",
+        "description": "Shape verified from a successful browser request on 2026-08-10.",
+        "required": [
+          "conflicts",
+          "allowedToCancelConflicts",
+          "warehousesById"
+        ],
+        "properties": {
+          "conflicts": {
+            "type": "array",
+            "items": {}
+          },
+          "allowedToCancelConflicts": {
+            "type": "boolean"
+          },
+          "warehousesById": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Warehouse"
+            }
           }
         }
       }
