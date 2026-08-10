@@ -3238,17 +3238,20 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "x-java-type": "WarehouseEmployeesShortRequest"
+                "x-java-type": "WarehouseEmployeesShortRequest",
+                "$ref": "#/components/schemas/WarehouseEmployeesShortRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful response; exact schema requires Moshi adapter or captured traffic",
+            "description": "Short warehouse employee list verified against browser traffic",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/WarehouseEmployeesShortResponse"
+                }
               }
             }
           },
@@ -3256,7 +3259,7 @@
             "description": "Ozon Job API error"
           }
         },
-        "x-confirmation": "retrofit-annotation",
+        "x-confirmation": "retrofit-annotation+browser-response",
         "x-java-interface": "ru.ozon.hire.network.api.whrating.WhRatingApi",
         "x-java-signature": "@NotNull d<WarehouseEmployeesShortResponse> getEmployeeListShort(@Body @NotNull WarehouseEmployeesShortRequest request);",
         "x-source": "network/api/whrating/WhRatingApi.java"
@@ -7926,6 +7929,101 @@
             "additionalProperties": {
               "$ref": "#/components/schemas/Warehouse"
             }
+          }
+        }
+      },
+      "WarehouseEmployeesShortRequest": {
+        "type": "object",
+        "required": [
+          "filter"
+        ],
+        "properties": {
+          "filter": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/WarehouseEmployeesFilterRequest"
+            }
+          }
+        }
+      },
+      "WarehouseEmployeesFilterRequest": {
+        "type": "object",
+        "required": [
+          "warehouseId"
+        ],
+        "properties": {
+          "warehouseId": {
+            "type": "string"
+          }
+        }
+      },
+      "WarehouseEmployeesShortResponse": {
+        "type": "object",
+        "description": "Shape verified from a successful browser request on 2026-08-10; employee values were not retained.",
+        "required": [
+          "warehouseEmployees"
+        ],
+        "properties": {
+          "warehouseEmployees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WarehouseEmployeeGroup"
+            }
+          }
+        }
+      },
+      "WarehouseEmployeeGroup": {
+        "type": "object",
+        "required": [
+          "warehouseId",
+          "employees",
+          "totalEmployeesCount",
+          "warehouseEmployeesRating"
+        ],
+        "properties": {
+          "warehouseId": {
+            "type": "string"
+          },
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WarehouseEmployeeShort"
+            }
+          },
+          "totalEmployeesCount": {
+            "type": "integer"
+          },
+          "warehouseEmployeesRating": {
+            "type": "number"
+          }
+        }
+      },
+      "WarehouseEmployeeShort": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "photoUrl",
+          "login",
+          "ratingAvg"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "login": {
+            "type": "string"
+          },
+          "ratingAvg": {
+            "type": "number"
           }
         }
       }
