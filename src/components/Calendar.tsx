@@ -6,8 +6,6 @@ interface CalendarProps {
   year: number;
   month: number;
   today: Date;
-  selectedDate: Date | null;
-  onSelectDate: (date: Date) => void;
   monthLabel: string;
   onPrev: () => void;
   onNext: () => void;
@@ -15,7 +13,7 @@ interface CalendarProps {
   warehouse: Warehouse;
 }
 
-export default function Calendar({ year, month, today, selectedDate, onSelectDate, monthLabel, onPrev, onNext, isCurrentMonth, warehouse }: CalendarProps) {
+export default function Calendar({ year, month, today, monthLabel, onPrev, onNext, isCurrentMonth, warehouse }: CalendarProps) {
   const daysInMonth = getDaysInMonth(year, month);
   const firstDow = getFirstDayOfWeek(year, month);
 
@@ -52,23 +50,19 @@ export default function Calendar({ year, month, today, selectedDate, onSelectDat
 
           const gId = getGroupForDate(date, warehouse);
           const isToday = isSameDay(date, today);
-          const isSelected = selectedDate && isSameDay(date, selectedDate);
           const isPast = date < today;
 
           return (
-            <button
+            <div
               key={date.toISOString()}
               className={styles.calendar__cell}
               data-group={isPast ? undefined : gId}
               data-today={isToday || undefined}
-              data-selected={isSelected || undefined}
               data-past={isPast || undefined}
-              disabled={isPast}
-              onClick={() => onSelectDate(date)}
             >
               <span className={styles["calendar__day-number"]}>{date.getDate()}</span>
               {isToday && <div className={styles["calendar__today-line"]} />}
-            </button>
+            </div>
           );
         })}
       </div>

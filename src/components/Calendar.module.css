@@ -69,22 +69,13 @@
   border: 1.5px solid transparent;
   border-radius: 9px;
   padding: 0;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 3px;
   background: transparent;
-  transition: filter 0.12s, background-color 0.4s ease, border-color 0.4s ease;
-}
-
-.calendar__cell:hover:not(:disabled) {
-  filter: brightness(0.92);
-}
-
-.calendar__cell:disabled {
-  cursor: default;
+  transition: background-color 0.4s ease;
 }
 
 /* ── Group backgrounds ── */
@@ -95,10 +86,6 @@
   .calendar__cell[data-group="0"] { background: color-mix(in srgb, var(--group-0) 22%, var(--surface)); }
   .calendar__cell[data-group="1"] { background: color-mix(in srgb, var(--group-1) 22%, var(--surface)); }
 }
-
-/* ── Selected: colored border ── */
-.calendar__cell[data-selected][data-group="0"] { border-color: var(--group-0); }
-.calendar__cell[data-selected][data-group="1"] { border-color: var(--group-1); }
 
 /* ── Day number ── */
 .calendar__day-number {

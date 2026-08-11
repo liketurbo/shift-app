@@ -19,8 +19,6 @@
   --text-disabled: #cccccc;
   --border:        #e8eaed;
   --divider:       #e0e0e0;
-  --overlay:       rgba(0, 0, 0, 0.28);
-  --shadow:        rgba(0, 0, 0, 0.10);
   --nav-button:    #b8cfe0;
   --nav-button-hover: #7aaec8;
   --weekend:       #c0392b;
@@ -37,8 +35,6 @@
     --text-disabled: #5d6671;
     --border:        #303842;
     --divider:       #343c46;
-    --overlay:       rgba(0, 0, 0, 0.58);
-    --shadow:        rgba(0, 0, 0, 0.35);
     --nav-button:    #71899b;
     --nav-button-hover: #9ab7c8;
     --weekend:       #ff7b70;

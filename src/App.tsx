@@ -1,10 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { WAREHOUSES, MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
-import { getGroupForDate, isSameDay } from "./utils";
+import { WAREHOUSES, MONTHS_RU } from "./config";
 import useMonthNav from "./hooks/useMonthNav";
 import Calendar from "./components/Calendar";
 import Legend from "./components/Legend";
-import ShiftCard from "./components/ShiftCard";
 import WarehouseDropdown from "./components/WarehouseDropdown";
 import styles from "./App.module.css";
 
@@ -34,9 +32,6 @@ export default function ShiftSchedule() {
     : firstWarehouse.id;
   const warehouse = warehouses.find(w => w.id === activeWarehouseId) ?? firstWarehouse;
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [isClosing, setIsClosing] = useState(false);
-
   useEffect(() => {
     const { group0, group0Light, group1, group1Light, topbar } = warehouse.palette;
     const root = document.documentElement;
@@ -48,38 +43,6 @@ export default function ShiftSchedule() {
   }, [warehouse]);
 
   const { viewYear, viewMonth, prevMonth, nextMonth } = useMonthNav(today);
-
-  function handleDateSelect(date: Date) {
-    setSelectedDate(date);
-    setIsClosing(false);
-  }
-
-  function handleClose() {
-    setIsClosing(true);
-  }
-
-  function handleAnimationEnd() {
-    if (isClosing) {
-      setSelectedDate(null);
-      setIsClosing(false);
-    }
-  }
-
-  const isSelectedInViewMonth =
-    selectedDate !== null &&
-    selectedDate.getFullYear() === viewYear &&
-    selectedDate.getMonth() === viewMonth;
-
-  const shift = isSelectedInViewMonth
-    ? warehouse.groups[getGroupForDate(selectedDate, warehouse)] ?? null
-    : null;
-
-  const isToday = selectedDate && isSameDay(selectedDate, today);
-  const dateLabel = isToday
-    ? "Сегодня"
-    : selectedDate
-      ? `${DAYS_RU[selectedDate.getDay()]}, ${selectedDate.getDate()} ${MONTHS_RU_GEN[selectedDate.getMonth()]}`
-      : "";
 
   const isCurrentMonth = viewYear === today.getFullYear() && viewMonth === today.getMonth();
 
@@ -97,7 +60,6 @@ export default function ShiftSchedule() {
               // The selection still works for the current session.
             }
             setSelectedWarehouseId(id);
-            setSelectedDate(null);
           }}
         />
       </div>
@@ -109,8 +71,6 @@ export default function ShiftSchedule() {
             year={viewYear}
             month={viewMonth}
             today={today}
-            selectedDate={selectedDate}
-            onSelectDate={handleDateSelect}
             monthLabel={`${MONTHS_RU[viewMonth]} ${viewYear}`}
             onPrev={prevMonth}
             onNext={nextMonth}
@@ -119,17 +79,6 @@ export default function ShiftSchedule() {
           />
         </div>
 
-        {isSelectedInViewMonth && shift && selectedDate && (
-          <ShiftCard
-            key={selectedDate.toISOString()}
-            shift={shift}
-            dateLabel={dateLabel}
-            warehouse={warehouse}
-            isClosing={isClosing}
-            onClose={handleClose}
-            onAnimationEnd={handleAnimationEnd}
-          />
-        )}
       </div>
     </div>
   );
