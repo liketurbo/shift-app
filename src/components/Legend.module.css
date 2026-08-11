@@ -22,3 +22,8 @@
 
 .legend__pill[data-group="0"] { background: var(--group-0-light); color: var(--group-0); transition: background-color 0.4s ease, color 0.4s ease; }
 .legend__pill[data-group="1"] { background: var(--group-1-light); color: var(--group-1); transition: background-color 0.4s ease, color 0.4s ease; }
+
+@media (prefers-color-scheme: dark) {
+  .legend__pill[data-group="0"] { background: color-mix(in srgb, var(--group-0) 22%, var(--surface)); color: color-mix(in srgb, var(--group-0) 65%, white); }
+  .legend__pill[data-group="1"] { background: color-mix(in srgb, var(--group-1) 22%, var(--surface)); color: color-mix(in srgb, var(--group-1) 65%, white); }
+}
