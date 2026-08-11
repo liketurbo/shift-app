@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
-import { MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
+import { WAREHOUSES, MONTHS_RU, DAYS_RU, MONTHS_RU_GEN } from "./config";
 import { getGroupForDate, isSameDay } from "./utils";
 import useMonthNav from "./hooks/useMonthNav";
-import useScheduleData from "./hooks/useScheduleData";
 import Calendar from "./components/Calendar";
 import Legend from "./components/Legend";
 import ShiftCard from "./components/ShiftCard";
@@ -10,7 +9,7 @@ import WarehouseDropdown from "./components/WarehouseDropdown";
 import styles from "./App.module.css";
 
 export default function ShiftSchedule() {
-  const { warehouses, source, message } = useScheduleData();
+  const warehouses = WAREHOUSES;
   const firstWarehouse = warehouses[0];
 
   if (!firstWarehouse) throw new Error("Список складов пуст");
@@ -104,10 +103,6 @@ export default function ShiftSchedule() {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.source} data-source={source} role="status">
-          <span className={styles.source__dot} />
-          {message}
-        </div>
         <div className={styles["calendar-card"]}>
           <Legend warehouse={warehouse} />
           <Calendar

@@ -31,11 +31,3 @@ export interface Warehouse {
   nightShiftHours: string;
   groups: ShiftGroup[];
 }
-
-export type ScheduleSource = "loading" | "local" | "remote" | "fallback";
-
-export interface ScheduleState {
-  warehouses: Warehouse[];
-  source: ScheduleSource;
-  message: string;
-}
