@@ -76,3 +76,9 @@
 .item[data-active] {
   color: #2ca5e0;
 }
+
+@media (min-width: 480px) and (max-width: 599px) {
+  .btn {
+    font-size: 0.8125rem;
+  }
+}
