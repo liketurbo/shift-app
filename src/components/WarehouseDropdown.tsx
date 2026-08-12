@@ -26,7 +26,7 @@ export default function WarehouseDropdown({ warehouses, selectedId, onChange }: 
   return (
     <div className={styles.dropdown} ref={ref}>
       <button className={styles.btn} onClick={() => setOpen(o => !o)}>
-        {selected?.name}
+        <span className={styles.label}>{selected?.name}</span>
         <span className={styles.chevron} data-open={open || undefined}>▾</span>
       </button>
       {open && (
