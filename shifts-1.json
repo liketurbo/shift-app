@@ -1,0 +1,37 @@
+{
+  "warehouseId": "1020003227870000",
+  "groups": [
+    {
+      "id": 0,
+      "day": {
+        "managerLogin": "s__uiaNTcR5p9i9-a2Vf-MaykSLIJxDEBeUc5pSUtGR5tkqsuhDg",
+        "employeeLogins": [
+          "s_UoOhbx05eh9lT8hWOxZEGeptePiDhReX7a-mNS7nd4Q3GVk0HtKAYks"
+        ]
+      },
+      "night": {
+        "managerLogin": "s_3ZOt7KJkFrPS9Pk3xdOPBZ9-d3BRWdKDg_ZfqY1oe3j5QJK54PehQ-g",
+        "employeeLogins": [
+          "s_aiD7FwFb6FD2KSoyZ4h5XVt0eOUrGt6sidXGWpFgmLSkSK5Un02xnF47VA",
+          "s_o-S8rs8RYQI7i1XzL-oTDlBZl-pTfV_qqqm33T1HuoIZ8NJR-2EZ3w"
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "day": {
+        "managerLogin": "s__DFi2Sw0EvstwznlPrsSwVLBkyVTaeFp4UyXrDtQ5L2ygpHOWxkV",
+        "employeeLogins": [
+          "s_wgXIGN7FVV3Dsm45SyhAZwYSXAj1GMft4QJ0srruyhbUqLqE2rE"
+        ]
+      },
+      "night": {
+        "managerLogin": "s_YSpEmvOnymBsU9sU5r2F2G4U680wWdynuYymNpQmU1Htlx2Pru0L",
+        "employeeLogins": [
+          "s_OOcz_Cwbmoq41XPvjChrV-BdS6TADo5uBrJn5oJBRv6RBaKaxCQvtg",
+          "s_F1hGnoYgC1spmmp_tdUCGDr6-VPCpu7J_nkVSWiDd8gxdernVg"
+        ]
+      }
+    }
+  ]
+}

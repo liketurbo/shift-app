@@ -1,4 +1,35 @@
-export interface Supervisor {
+export interface Employee {
+  login: string;
+  firstName: string;
+  lastName: string;
+  employeePosition: string;
+  photoUrl: string;
+  wasEmployeeOnShift: boolean;
+  avgRating: number;
+}
+
+export interface WarehouseEmployees {
+  warehouseId: string;
+  employees: Employee[];
+}
+
+export interface ShiftAssignment {
+  managerLogin: string;
+  employeeLogins: string[];
+}
+
+export interface ShiftGroupConfig {
+  id: number;
+  day: ShiftAssignment;
+  night: ShiftAssignment;
+}
+
+export interface WarehouseShifts {
+  warehouseId: string;
+  groups: ShiftGroupConfig[];
+}
+
+export interface Supervisor extends Employee {
   name: string;
   isChief: boolean;
 }
@@ -19,6 +50,17 @@ export interface WarehousePalette {
   group1: string;
   group1Light: string;
   topbar: string;
+}
+
+export interface WarehouseConfig {
+  name: string;
+  palette: WarehousePalette;
+  anchorDate: string;
+  anchorGroup: number;
+  dayShiftHours: string;
+  nightShiftHours: string;
+  employeeSource: WarehouseEmployees;
+  shiftSource: WarehouseShifts;
 }
 
 export interface Warehouse {

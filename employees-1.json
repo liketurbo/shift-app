@@ -1,0 +1,95 @@
+{
+  "warehouseId": "1020003227870000",
+  "employees": [
+    {
+      "login": "s__DFi2Sw0EvstwznlPrsSwVLBkyVTaeFp4UyXrDtQ5L2ygpHOWxkV",
+      "firstName": "Артём",
+      "lastName": "Генералов",
+      "employeePosition": "Менеджер смены хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/0746d65d-5761-4725-a626-1409c1e05317.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.51
+    },
+    {
+      "login": "s_F1hGnoYgC1spmmp_tdUCGDr6-VPCpu7J_nkVSWiDd8gxdernVg",
+      "firstName": "Виктор",
+      "lastName": "Гуськов",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/7451ade9-39bf-41fd-94fe-9269d5bc9bc3.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 0
+    },
+    {
+      "login": "s__uiaNTcR5p9i9-a2Vf-MaykSLIJxDEBeUc5pSUtGR5tkqsuhDg",
+      "firstName": "Сергей",
+      "lastName": "Долматов",
+      "employeePosition": "Менеджер смены хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/8454cc43-ac3a-453b-9474-339c0629c0cd.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.72
+    },
+    {
+      "login": "s_3ZOt7KJkFrPS9Pk3xdOPBZ9-d3BRWdKDg_ZfqY1oe3j5QJK54PehQ-g",
+      "firstName": "Руслан",
+      "lastName": "Жуков",
+      "employeePosition": "Менеджер смены хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/e906e77d-8d23-4f2d-af9e-3fd99e524602.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.74
+    },
+    {
+      "login": "s_o-S8rs8RYQI7i1XzL-oTDlBZl-pTfV_qqqm33T1HuoIZ8NJR-2EZ3w",
+      "firstName": "Александр",
+      "lastName": "Костров",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/581391e8-0692-4f86-b8f1-5ac6c13ec2d1.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.79
+    },
+    {
+      "login": "s_UoOhbx05eh9lT8hWOxZEGeptePiDhReX7a-mNS7nd4Q3GVk0HtKAYks",
+      "firstName": "Дмитрий",
+      "lastName": "Кривоногов",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/37351c32-9e5d-4175-b6a2-38d3c7a2aad9.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.98
+    },
+    {
+      "login": "s_YSpEmvOnymBsU9sU5r2F2G4U680wWdynuYymNpQmU1Htlx2Pru0L",
+      "firstName": "Максим",
+      "lastName": "Кузьмин",
+      "employeePosition": "Менеджер смены хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/73f0216c-9b98-47aa-8314-9f6dad19d37e.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.73
+    },
+    {
+      "login": "s_wgXIGN7FVV3Dsm45SyhAZwYSXAj1GMft4QJ0srruyhbUqLqE2rE",
+      "firstName": "Максим",
+      "lastName": "Митин",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/e8960364-e0c2-4cc6-841a-73c0a12a3209.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.63
+    },
+    {
+      "login": "s_aiD7FwFb6FD2KSoyZ4h5XVt0eOUrGt6sidXGWpFgmLSkSK5Un02xnF47VA",
+      "firstName": "Яна",
+      "lastName": "Онопченко",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/acdee8fa-7771-4d2d-b6a7-7f0c126d47fb.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.56
+    },
+    {
+      "login": "s_OOcz_Cwbmoq41XPvjChrV-BdS6TADo5uBrJn5oJBRv6RBaKaxCQvtg",
+      "firstName": "Герман",
+      "lastName": "Тихонович",
+      "employeePosition": "Начальник участка хаба доставки",
+      "photoUrl": "https://ir.ozone.ru/s3/public-userpics/userspics/d7e98e30-e5fd-41c7-9bcb-264cb3ff624d.png",
+      "wasEmployeeOnShift": false,
+      "avgRating": 4.65
+    }
+  ]
+}

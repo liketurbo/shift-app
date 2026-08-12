@@ -1,8 +1,76 @@
-import type { Warehouse } from "./types";
+import employees1 from "../employees-1.json";
+import employees2 from "../employees-2.json";
+import shifts1 from "../shifts-1.json";
+import shifts2 from "../shifts-2.json";
+import type { ShiftGroup, Supervisor, Warehouse, WarehouseConfig } from "./types";
 
-export const WAREHOUSES: Warehouse[] = [
+const MANAGER_POSITION = "Менеджер смены хаба доставки";
+
+function buildWarehouse(config: WarehouseConfig): Warehouse {
+  if (config.employeeSource.warehouseId !== config.shiftSource.warehouseId) {
+    throw new Error(`ID склада не совпадает в employees и shifts для ${config.name}`);
+  }
+
+  const employeesByLogin = new Map(
+    config.employeeSource.employees.map(employee => [employee.login, employee]),
+  );
+
+  const resolveSupervisor = (login: string): Supervisor => {
+    const employee = employeesByLogin.get(login);
+    if (!employee) {
+      throw new Error(`Сотрудник ${login} не найден для склада ${config.name}`);
+    }
+
+    return {
+      ...employee,
+      name: `${employee.lastName} ${employee.firstName}`,
+      isChief: employee.employeePosition === MANAGER_POSITION,
+    };
+  };
+
+  const assignedLogins = config.shiftSource.groups.flatMap(group => [
+    group.day.managerLogin,
+    ...group.day.employeeLogins,
+    group.night.managerLogin,
+    ...group.night.employeeLogins,
+  ]);
+  const uniqueAssignedLogins = new Set(assignedLogins);
+
+  if (uniqueAssignedLogins.size !== assignedLogins.length) {
+    throw new Error(`Один сотрудник назначен в несколько смен склада ${config.name}`);
+  }
+
+  const missingLogins = config.employeeSource.employees
+    .filter(employee => !uniqueAssignedLogins.has(employee.login))
+    .map(employee => `${employee.lastName} ${employee.firstName}`);
+  if (missingLogins.length > 0) {
+    throw new Error(`Не распределены сотрудники склада ${config.name}: ${missingLogins.join(", ")}`);
+  }
+
+  const groups: ShiftGroup[] = config.shiftSource.groups.map(group => ({
+    id: group.id,
+    day: {
+      supervisors: [group.day.managerLogin, ...group.day.employeeLogins].map(resolveSupervisor),
+    },
+    night: {
+      supervisors: [group.night.managerLogin, ...group.night.employeeLogins].map(resolveSupervisor),
+    },
+  }));
+
+  return {
+    id: config.employeeSource.warehouseId,
+    name: config.name,
+    palette: config.palette,
+    anchorDate: config.anchorDate,
+    anchorGroup: config.anchorGroup,
+    dayShiftHours: config.dayShiftHours,
+    nightShiftHours: config.nightShiftHours,
+    groups,
+  };
+}
+
+const WAREHOUSE_CONFIGS: WarehouseConfig[] = [
   {
-    id: "ozon-1",
     name: "Домодедово Промышленная Блок 1",
     palette: {
       group0:      "#1a6eb5",
@@ -15,41 +83,10 @@ export const WAREHOUSES: Warehouse[] = [
     anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
     nightShiftHours: "23:00 – 11:00",
-    groups: [
-      {
-        id: 0,
-        day: {
-          supervisors: [
-            { name: "Долматов Сергей", isChief: true },
-            { name: "Кривоногов Дмитрий", isChief: false },
-          ],
-        },
-        night: {
-          supervisors: [
-            { name: "Жуков Руслан", isChief: true },
-            { name: "Онопченко Яна", isChief: false },
-          ],
-        },
-      },
-      {
-        id: 1,
-        day: {
-          supervisors: [
-            { name: "Генералов Артем", isChief: true },
-            { name: "Митин Максим", isChief: false },
-          ],
-        },
-        night: {
-          supervisors: [
-            { name: "Кузьмин Максим", isChief: true },
-            { name: "Тихонов Герман", isChief: false },
-          ],
-        },
-      },
-    ],
+    employeeSource: employees1,
+    shiftSource: shifts1,
   },
   {
-    id: "ozon-2",
     name: "Домодедово Промышленная Блок 2",
     palette: {
       group0:      "#7c3aed",
@@ -62,37 +99,12 @@ export const WAREHOUSES: Warehouse[] = [
     anchorGroup: 0,
     dayShiftHours: "11:00 – 23:00",
     nightShiftHours: "23:00 – 11:00",
-    groups: [
-      {
-        id: 0,
-        day: {
-          supervisors: [
-            { name: "Генералов Александр", isChief: true },
-          ],
-        },
-        night: {
-          supervisors: [
-            { name: "Петров Александр", isChief: true },
-          ],
-        },
-      },
-      {
-        id: 1,
-        day: {
-          supervisors: [
-            { name: "Беляев Сергей", isChief: true },
-            { name: "Полякова Ирина", isChief: false },
-          ],
-        },
-        night: {
-          supervisors: [
-            { name: "Попов Сергей", isChief: true },
-          ],
-        },
-      },
-    ],
+    employeeSource: employees2,
+    shiftSource: shifts2,
   },
 ];
+
+export const WAREHOUSES: Warehouse[] = WAREHOUSE_CONFIGS.map(buildWarehouse);
 
 export const MONTHS_RU = [
   "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",

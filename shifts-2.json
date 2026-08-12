@@ -1,0 +1,35 @@
+{
+  "warehouseId": "1020005001810550",
+  "groups": [
+    {
+      "id": 0,
+      "day": {
+        "managerLogin": "s_DItptuZRytSkpDgZOPV-n8xxgr8FmX7dCj5kHRPbRuc-e69EJIE",
+        "employeeLogins": [
+          "s_WN0IZ2QEiz0VSMBPyjQbCpb6bZ6IuT61REq2fPj5Z7DT412r9g"
+        ]
+      },
+      "night": {
+        "managerLogin": "s_-cnHjf-2uPPbNV7QAy-OeiqCmTj1UTYRR09QEFGFrK4QWtYx",
+        "employeeLogins": [
+          "s_sBK3xI5v3TuhExce_VKvoflPce0ZWTIE08aECv7uDIyWeukVo4u2mEzLJFU"
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "day": {
+        "managerLogin": "s_EtUuLYxmR2AQLd7FpFjoTNXUOyM-5n0tU9hrtSY328n2x9bBnAE",
+        "employeeLogins": [
+          "s_WUxTaE-htqztZS-Ik61ssCrd0QpmNtrKmXo7b-beYRFC56yYFPBOYtU"
+        ]
+      },
+      "night": {
+        "managerLogin": "s_UHA-LG59lwWdd9-h-EQJXE1Qsw7_42o4joX7rJI0MVeLvsqEKQ",
+        "employeeLogins": [
+          "s_kq63-zeSBIGAb_31yn-ivHRv5P3-ArDKQOwIvmBcMY4sxGDMhuE"
+        ]
+      }
+    }
+  ]
+}
