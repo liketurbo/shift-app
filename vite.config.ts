@@ -9,5 +9,5 @@ export default defineConfig({
       usePolling: true
     }
   },
-  base: '/shift-app'
+  base: '/ozon-calendar'
 })

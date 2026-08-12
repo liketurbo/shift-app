@@ -49,7 +49,7 @@ export default function ShiftSchedule() {
   return (
     <div className={styles.app}>
       <div className={styles.topbar}>
-        <div className={styles.topbar__title}>График смен</div>
+        <div className={styles.topbar__title}>Ozon Календарь</div>
         <WarehouseDropdown
           warehouses={warehouses}
           selectedId={activeWarehouseId}
@@ -78,8 +78,11 @@ export default function ShiftSchedule() {
             warehouse={warehouse}
           />
         </div>
-
       </div>
+
+      <footer className={styles.footer}>
+        © {today.getFullYear()} Ozon Календарь
+      </footer>
     </div>
   );
 }

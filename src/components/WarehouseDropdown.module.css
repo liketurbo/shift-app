@@ -1,5 +1,7 @@
 .dropdown {
   position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .btn {
@@ -10,9 +12,12 @@
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 8px;
   color: #fff;
-  font-size: 0.8125rem;
+  width: 100%;
+  max-width: 390px;
+  font-size: 0.6875rem;
   font-weight: 500;
-  padding: 6px 10px;
+  line-height: 1.25;
+  padding: 5px 9px;
   cursor: pointer;
 }
 
