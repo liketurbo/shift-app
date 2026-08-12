@@ -6,6 +6,11 @@ import Legend from "./components/Legend";
 import WarehouseDropdown from "./components/WarehouseDropdown";
 import styles from "./App.module.css";
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export default function ShiftSchedule() {
   const warehouses = WAREHOUSES;
   const firstWarehouse = warehouses[0];
@@ -27,6 +32,22 @@ export default function ShiftSchedule() {
     }
     return firstWarehouse.id;
   });
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const handleInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+    const handleInstalled = () => setInstallPrompt(null);
+
+    window.addEventListener("beforeinstallprompt", handleInstallPrompt);
+    window.addEventListener("appinstalled", handleInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleInstallPrompt);
+      window.removeEventListener("appinstalled", handleInstalled);
+    };
+  }, []);
   const activeWarehouseId = warehouses.some(w => w.id === selectedWarehouseId)
     ? selectedWarehouseId
     : firstWarehouse.id;
@@ -81,6 +102,19 @@ export default function ShiftSchedule() {
       </div>
 
       <footer className={styles.footer}>
+        {installPrompt && (
+          <button
+            className={styles.installButton}
+            type="button"
+            onClick={async () => {
+              await installPrompt.prompt();
+              await installPrompt.userChoice;
+              setInstallPrompt(null);
+            }}
+          >
+            Установить приложение
+          </button>
+        )}
         © {today.getFullYear()} Ozon Календарь
       </footer>
     </div>
