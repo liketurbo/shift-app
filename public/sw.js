@@ -1,4 +1,4 @@
-const CACHE_PREFIX = 'ozon-calendar-';
+const CACHE_PREFIX = 'ozon-job-calendar-';
 const CACHE_NAME = `${CACHE_PREFIX}v1`;
 
 async function cacheAppShell() {

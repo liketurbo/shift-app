@@ -1,6 +1,6 @@
 {
-  "name": "Ozon Календарь",
-  "short_name": "Календарь",
+  "name": "Ozon Job Календарь",
+  "short_name": "Ozon Job",
   "description": "Календарь рабочих смен сотрудников",
   "start_url": "./",
   "scope": "./",

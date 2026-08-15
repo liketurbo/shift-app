@@ -11,6 +11,8 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+const WAREHOUSE_STORAGE_KEY = "ozon-job-calendar-warehouse-id";
+
 export default function ShiftSchedule() {
   const warehouses = WAREHOUSES;
   const firstWarehouse = warehouses[0];
@@ -25,7 +27,7 @@ export default function ShiftSchedule() {
 
   const [selectedWarehouseId, setSelectedWarehouseId] = useState(() => {
     try {
-      const saved = localStorage.getItem("shift-app-warehouse-id");
+      const saved = localStorage.getItem(WAREHOUSE_STORAGE_KEY);
       if (saved && warehouses.some(w => w.id === saved)) return saved;
     } catch {
       // Storage can be unavailable in private browsing modes.
@@ -70,13 +72,13 @@ export default function ShiftSchedule() {
   return (
     <div className={styles.app}>
       <div className={styles.topbar}>
-        <div className={styles.topbar__title}>Ozon Календарь</div>
+        <div className={styles.topbar__title}>Ozon Job Календарь</div>
         <WarehouseDropdown
           warehouses={warehouses}
           selectedId={activeWarehouseId}
           onChange={id => {
             try {
-              localStorage.setItem("shift-app-warehouse-id", id);
+              localStorage.setItem(WAREHOUSE_STORAGE_KEY, id);
             } catch {
               // The selection still works for the current session.
             }
@@ -115,7 +117,7 @@ export default function ShiftSchedule() {
             Установить приложение
           </button>
         )}
-        © {today.getFullYear()} Ozon Календарь
+        © {today.getFullYear()} Ozon Job Календарь
       </footer>
     </div>
   );

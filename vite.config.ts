@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
         usePolling: true
       }
     },
-    // GitHub Pages uses /ozon-calendar/. Mirrors can build with VITE_BASE_PATH=/.
-    base: env.VITE_BASE_PATH || '/ozon-calendar/',
+    // GitHub Pages uses /ozon-job-calendar/. Mirrors can build with VITE_BASE_PATH=/.
+    base: env.VITE_BASE_PATH || '/ozon-job-calendar/',
   }
 })
