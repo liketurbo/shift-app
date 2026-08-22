@@ -89,8 +89,10 @@
 }
 
 .avatarStack {
-  min-width: 48px;
+  width: calc(38px + (var(--avatar-count, 1) - 1) * 16px);
+  min-width: calc(38px + (var(--avatar-count, 1) - 1) * 16px);
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   padding-left: 1px;
 }
@@ -133,7 +135,10 @@
     padding-inline: 3px;
   }
   .avatar { width: 36px; height: 36px; }
-  .avatarStack { min-width: 48px; }
+  .avatarStack {
+    width: calc(36px + (var(--avatar-count, 1) - 1) * 15px);
+    min-width: calc(36px + (var(--avatar-count, 1) - 1) * 15px);
+  }
   .avatarStack .avatar + .avatar { margin-left: -21px; }
   .manager__name { font-size: 0.625rem; }
 }

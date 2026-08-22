@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import styles from "./ShiftLabel.module.css";
 import type { ShiftGroup, Supervisor } from "../types";
 
@@ -67,6 +67,7 @@ function Manager({
   const label = isDay ? "Дневная смена" : "Ночная смена";
   const manager = supervisors.find(person => person.isChief);
   const others = supervisors.filter(person => !person.isChief);
+  const avatarCount = others.length + 1;
 
   return (
     <div
@@ -76,7 +77,10 @@ function Manager({
       <span className={isDay ? styles.iconDay : styles.iconNight} aria-label={label}>
         {isDay ? <DayIcon /> : <NightIcon />}
       </span>
-      <span className={styles.avatarStack}>
+      <span
+        className={styles.avatarStack}
+        style={{ "--avatar-count": avatarCount } as CSSProperties}
+      >
         {others.map(person => <Avatar key={person.login} person={person} />)}
         <Avatar person={manager} isManager />
       </span>

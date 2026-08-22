@@ -65,6 +65,7 @@
 
 /* ── Cell base ── */
 .calendar__cell {
+  position: relative;
   aspect-ratio: 1;
   border: 1.5px solid transparent;
   border-radius: 9px;
@@ -105,6 +106,8 @@
 
 /* ── Today underline ── */
 .calendar__today-line {
+  position: absolute;
+  top: calc(50% + 11px);
   width: clamp(13px, 32%, 18px);
   height: 2px;
   flex: 0 0 auto;
