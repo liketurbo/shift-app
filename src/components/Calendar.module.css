@@ -107,7 +107,7 @@
 /* ── Today underline ── */
 .calendar__today-line {
   position: absolute;
-  top: calc(50% + 11px);
+  top: calc(50% + 14px);
   width: clamp(13px, 32%, 18px);
   height: 2px;
   flex: 0 0 auto;
